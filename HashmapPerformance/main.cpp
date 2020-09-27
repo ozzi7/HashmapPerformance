@@ -37,14 +37,14 @@ void test_performance()
 
 	// hashmaps
 	//std::unordered_map<long long, Infoset> stdmap;
-	libcuckoo::cuckoohash_map<long long, Infoset> libcuckooMap;
-	/*phmap::node_hash_map<long long, Infoset,
+	//libcuckoo::cuckoohash_map<long long, Infoset> libcuckooMap;
+	phmap::node_hash_map<long long, Infoset,
 		phmap::container_internal::hash_default_hash<long long>,
 		phmap::container_internal::hash_default_eq<long long>,
-		phmap::container_internal::Allocator<phmap::container_internal::Pair<long long, Infoset>>>* map = new phmap::node_hash_map<long long, Infoset,
+		phmap::container_internal::Allocator<phmap::container_internal::Pair<long long, Infoset>>>* node_hash_map = new phmap::node_hash_map<long long, Infoset,
 		phmap::container_internal::hash_default_hash<long long>,
 		phmap::container_internal::hash_default_eq<long long>,
-		phmap::container_internal::Allocator<phmap::container_internal::Pair<long long, Infoset>>>();*/
+		phmap::container_internal::Allocator<phmap::container_internal::Pair<long long, Infoset>>>();
 
 	/// <summary>
 	/// Insert nodes
@@ -64,10 +64,10 @@ void test_performance()
 
 			for (t = item.first; t < item.second; ++t) 
 			{
-				long long key = Util::RandomLL(0, 100LL);
-				//Infoset& infoset = (*bp_hashmap)[key];
+				long long key = Util::RandomLL(0, 100000000LL);
+				Infoset& infoset = (*node_hash_map)[key];
 				//Infoset& infoset = umap[key];
-				libcuckooMap.insert(key, Infoset());
+				//libcuckooMap.insert(key, Infoset());
 
 				//Infoset infoset = Infoset();
 				//stdmap[key] = infoset;
@@ -82,7 +82,7 @@ void test_performance()
 			progressBar.display();
 		});
 	progressBar.done();
-	std::cout << "Elements inserted: " << libcuckooMap.size() << std::endl;
+	std::cout << "Elements inserted: " << (*node_hash_map).size() << std::endl;
 
 
 	/// <summary>
@@ -93,8 +93,8 @@ void test_performance()
 	progressBar2.display();
 
 	long long sum = 0;
-	loop_indices = std::vector<std::pair<uint64_t, uint64_t>>(Params::nofThreads); // (0,10000) (10000, 20000), 
-	Util::GetThreadWorkItems(loop_indices, 0, Params::nofIters);
+	loop_indices = std::vector<std::pair<uint64_t, uint64_t>>(24); // (0,10000) (10000, 20000), 
+	Util::GetThreadWorkItems(loop_indices, 0, Params::nofIters, 24);
 
 	std::for_each(
 		std::execution::par_unseq,
@@ -107,14 +107,14 @@ void test_performance()
 
 			for (t = item.first; t < item.second; ++t)
 			{
-				long long key = Util::RandomLL(0, 100LL);
-				//Infoset& infoset = (*map)[key];
+				long long key = Util::RandomLL(0, 100000000LL);
+				Infoset& infoset = (*node_hash_map)[key];
 				//Infoset& infoset = map[key];
 
-				Infoset infoset;
+				/*Infoset infoset;
 				if (libcuckooMap.find(key, infoset)) {
 					tsum++;
-				}
+				}*/
 
 				//std::unordered_map<long long, Infoset>::const_iterator got = stdmap.find(key);
 				//if (!(got == stdmap.end()))
