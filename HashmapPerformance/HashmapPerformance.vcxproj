@@ -157,6 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="infoset.h" />
+    <ClInclude Include="libcuckoo\bucket_container.hh" />
+    <ClInclude Include="libcuckoo\cuckoohash_config.hh" />
+    <ClInclude Include="libcuckoo\cuckoohash_map.hh" />
+    <ClInclude Include="libcuckoo\cuckoohash_util.hh" />
     <ClInclude Include="parallel_hashmap\btree.h" />
     <ClInclude Include="parallel_hashmap\meminfo.h" />
     <ClInclude Include="parallel_hashmap\phmap.h" />

@@ -68,5 +68,17 @@
     <ClInclude Include="util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="libcuckoo\bucket_container.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcuckoo\cuckoohash_config.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcuckoo\cuckoohash_map.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcuckoo\cuckoohash_util.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

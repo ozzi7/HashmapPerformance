@@ -9,6 +9,6 @@ class Infoset;
 class Params {
 public:
 	/* hardware params */
-	static const int nofThreads = 24;
-	static const long long nofIters = 50000000000ll;
+	static const int nofThreads = 1;
+	static const long long nofIters = 50000000ll;
 };
