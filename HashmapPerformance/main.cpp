@@ -36,8 +36,8 @@ void test_performance()
 	Util::GetThreadWorkItems(loop_indices, 0, Params::nofIters);
 
 	// hashmaps
-	std::unordered_map<long long, Infoset> stdmap;
-	//libcuckoo::cuckoohash_map<long long, Infoset> libcuckooMap;
+	//std::unordered_map<long long, Infoset> stdmap;
+	libcuckoo::cuckoohash_map<long long, Infoset> libcuckooMap;
 	/*phmap::node_hash_map<long long, Infoset,
 		phmap::container_internal::hash_default_hash<long long>,
 		phmap::container_internal::hash_default_eq<long long>,
@@ -64,13 +64,13 @@ void test_performance()
 
 			for (t = item.first; t < item.second; ++t) 
 			{
-				long long key = Util::RandomLL(0, 1000000000LL);
+				long long key = Util::RandomLL(0, 100LL);
 				//Infoset& infoset = (*bp_hashmap)[key];
 				//Infoset& infoset = umap[key];
-				//libcuckooMap.insert(key, Infoset());
+				libcuckooMap.insert(key, Infoset());
 
-				Infoset infoset = Infoset();
-				stdmap[key] = infoset;
+				//Infoset infoset = Infoset();
+				//stdmap[key] = infoset;
 
 				if ((t - item.first) % 1000000 == 0 && (t - item.first) != 0) 
 				{
@@ -82,7 +82,7 @@ void test_performance()
 			progressBar.display();
 		});
 	progressBar.done();
-	std::cout << "Elements inserted: " << stdmap.size() << std::endl;
+	std::cout << "Elements inserted: " << libcuckooMap.size() << std::endl;
 
 
 	/// <summary>
@@ -107,20 +107,20 @@ void test_performance()
 
 			for (t = item.first; t < item.second; ++t)
 			{
-				long long key = Util::RandomLL(0, 1000000000LL);
+				long long key = Util::RandomLL(0, 100LL);
 				//Infoset& infoset = (*map)[key];
 				//Infoset& infoset = map[key];
 
-				//Infoset infoset;
-				//if (libcuckooMap.find(key, infoset)) {
-				//	tsum++;
-				//}
-
-				std::unordered_map<long long, Infoset>::const_iterator got = stdmap.find(key);
-				if (!(got == stdmap.end()))
-				{
+				Infoset infoset;
+				if (libcuckooMap.find(key, infoset)) {
 					tsum++;
 				}
+
+				//std::unordered_map<long long, Infoset>::const_iterator got = stdmap.find(key);
+				//if (!(got == stdmap.end()))
+				//{
+				//	tsum++;
+				//}
 
 				if ((t - item.first) % 1000000 == 0 && (t - item.first) != 0)
 				{
