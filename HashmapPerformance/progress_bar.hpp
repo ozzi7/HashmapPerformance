@@ -40,7 +40,6 @@ public:
 
 	void display()
 	{
-		mtx.lock();
 		double progress = (double)ticks / total_ticks;
 		int pos = (int)(bar_width * progress);
 
@@ -59,17 +58,15 @@ public:
 			" iter/s " << double(time_elapsed) / 1000.0 << "s elapsed       ";
 		std::cout << ostrstream.str();
 		std::cout.flush();
-		mtx.unlock();
 	}
 
 	void done()
 	{
 		mtx.lock();
-		ticks = total_ticks;
-		mtx.unlock();
 
 		display();
 		std::cout << std::endl;
+		mtx.unlock();
 	}
 };
 
